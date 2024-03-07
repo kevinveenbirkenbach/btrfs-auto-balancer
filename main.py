@@ -5,17 +5,16 @@ import argparse
 def run_btrfs_balance(drive_path, countdown, count_down_step):
     while countdown > 5:
         # Start the btrfs balance command in the background
-        balance_cmd = f"btrfs balance start -dusage={countdown} -musage={countdown} {drive_path} &"
-        subprocess.run(balance_cmd, shell=True)
+        balance_cmd = f"btrfs balance start -dusage={countdown} -musage={countdown} {drive_path}"
+        # Use Popen to start the command and allow the script to continue running
+        balance_process = subprocess.Popen(balance_cmd, shell=True)
         
-        # Wait a bit for the balance command to start before querying the status
-        time.sleep(2)
-        
-        # Display the status of the balancing
-        for _ in range(5):  # Adjustable based on how often you want to show the status
+        # Continuously display the status of the balancing until the balance command finishes
+        while balance_process.poll() is None:  # poll() returns None while the process is running
+            subprocess.run(f"btrfs fi df {drive_path}", shell=True)
             subprocess.run(f"btrfs balance status {drive_path}", shell=True)
             time.sleep(2)  # Wait for 2 seconds before showing the next status
-
+        
         # Update countdown for the next iteration
         countdown -= count_down_step
 
