@@ -7,6 +7,7 @@ def run_btrfs_balance(drive_path, countdown, count_down_step):
         # Start the btrfs balance command in the background
         balance_cmd = f"btrfs balance start -dusage={countdown} -musage={countdown} {drive_path}"
         # Use Popen to start the command and allow the script to continue running
+        print(balance_cmd)
         balance_process = subprocess.Popen(balance_cmd, shell=True)
         
         # Continuously display the status of the balancing until the balance command finishes
