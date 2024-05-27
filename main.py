@@ -3,9 +3,11 @@ import time
 import argparse
 
 def get_btrfs_mounts():
-    # Find all mounted btrfs filesystems using findmnt
-    result = subprocess.run("findmnt -t btrfs -o TARGET -n", shell=True, capture_output=True, text=True)
+    # Find all mounted btrfs filesystems using findmnt with proper formatting
+    result = subprocess.run("findmnt -t btrfs -o TARGET --noheadings -n -r", shell=True, capture_output=True, text=True)
     btrfs_mounts = result.stdout.strip().split('\n')
+    # Filter out any empty strings in case of extra newlines
+    btrfs_mounts = [mount for mount in btrfs_mounts if mount]
     return btrfs_mounts
 
 def run_btrfs_balance(drive_path, countdown, count_down_step):
