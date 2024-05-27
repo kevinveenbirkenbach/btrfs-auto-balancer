@@ -2,6 +2,12 @@ import subprocess
 import time
 import argparse
 
+def get_btrfs_mounts():
+    # Find all mounted btrfs filesystems using findmnt
+    result = subprocess.run("findmnt -t btrfs -o TARGET -n", shell=True, capture_output=True, text=True)
+    btrfs_mounts = result.stdout.strip().split('\n')
+    return btrfs_mounts
+
 def run_btrfs_balance(drive_path, countdown, count_down_step):
     while countdown > 5:
         # Start the btrfs balance command in the background
@@ -21,10 +27,21 @@ def run_btrfs_balance(drive_path, countdown, count_down_step):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Run btrfs balance with countdown and display balance status.")
-    parser.add_argument("drive_path", type=str, help="The drive path to balance.")
     parser.add_argument("countdown", type=int, help="Initial countdown value for dusage and musage.")
     parser.add_argument("count_down_step", type=int, help="The step to decrement the countdown by each loop.")
+    parser.add_argument("--drive_path", type=str, help="The drive path to balance (optional). If not provided, all Btrfs drives will be balanced.")
 
     args = parser.parse_args()
-
-    run_btrfs_balance(args.drive_path, args.countdown, args.count_down_step)
+    
+    if args.drive_path:
+        # If drive_path is provided, run balance on it
+        run_btrfs_balance(args.drive_path, args.countdown, args.count_down_step)
+    else:
+        # If drive_path is not provided, get all Btrfs mounts and run balance on each
+        btrfs_mounts = get_btrfs_mounts()
+        if not btrfs_mounts or btrfs_mounts == ['']:
+            print("No Btrfs filesystems found.")
+            exit(1)
+        
+        for drive_path in btrfs_mounts:
+            run_btrfs_balance(drive_path, args.countdown, args.count_down_step)
