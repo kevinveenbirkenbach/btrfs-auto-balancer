@@ -1,59 +1,69 @@
-# Auto Btrfs Balancer
+# Btrfs Auto Balancer (btrfsauba)
+[![License: AGPL v3](https://img.shields.io/badge/License-AGPL%20v3-blue.svg)](https://www.gnu.org/licenses/agpl-3.0)
+[![Python Version](https://img.shields.io/badge/Python-3.x-blue.svg)](https://www.python.org)
+[![GitHub stars](https://img.shields.io/github/stars/kevinveenbirkenbach/btrfs-auto-balancer.svg?style=social)](https://github.com/kevinveenbirkenbach/btrfs-auto-balancer/stargazers)
+[![GitHub forks](https://img.shields.io/github/forks/kevinveenbirkenbach/btrfs-auto-balancer.svg?style=social)](https://github.com/kevinveenbirkenbach/btrfs-auto-balancer/network)
 
-The Auto Btrfs Balancer is a Python script designed for automating the management of Btrfs filesystem balancing. It intelligently decrements usage thresholds while simultaneously providing real-time balance status updates. This tool simplifies the maintenance of Btrfs volumes by executing balance operations with dynamic parameters, ensuring efficient storage utilization and enhanced system performance.
+**Btrfs Auto Balancer** is a Python utility that automates the balancing process for Btrfs filesystems. It dynamically adjusts usage thresholds while providing real-time status updates, ensuring efficient storage utilization and improved system performance on your Linux system. ⚙️💾
 
-## Features
+## 🎯 Purpose
 
-- Automates Btrfs balance operations with dynamic decrementing usage thresholds.
-- Provides real-time status updates on Btrfs balance operations.
-- Simplifies Btrfs volume maintenance for improved storage utilization and system performance.
-- Supports balancing operations on all mounted Btrfs filesystems if no specific drive path is provided.
+Btrfs Auto Balancer simplifies Btrfs volume maintenance by automating the balance process. It dynamically decrements usage thresholds (for both data and metadata) and displays real-time status updates during balancing operations. Whether you're managing a single drive or all mounted Btrfs filesystems, this tool helps keep your system optimized.
 
-## Requirements
+## 🚀 Features
 
-- Python 3.x
-- Btrfs file system
-- Linux Operating System
+- **Dynamic Balancing:** Automatically decrements disk usage thresholds during balancing operations. 🔄
+- **Real-Time Monitoring:** Continuously displays current Btrfs filesystem status and balance progress. 📊
+- **Multi-Drive Support:** Balances a specific drive if provided, or processes all mounted Btrfs volumes if no drive is specified. 💻
+- **Flexible Parameters:** Easily adjust initial thresholds and decrement steps to suit your system's needs. 🔧
 
-## Usage
+## 🛠 Requirements
 
-To use the Auto Btrfs Balancer, clone this repository to your local machine and run the script with the required arguments. Here is a basic example:
+- **Python 3.x** 🐍
+- **Btrfs Filesystem** 🗄️
+- **Linux Operating System** 🐧
 
-### Balancing a specific Btrfs drive:
+## 📥 Installation
+
+You can install **Btrfs Auto Balancer** using [Kevin's Package Manager](https://github.com/kevinveenbirkenbach/package-manager) with the alias **btrfsauba**:
 
 ```bash
-python auto_btrfs_balancer.py <countdown> <count_down_step> --drive_path <drive_path>
+pkgman install btrfsauba
 ```
 
-### Balancing all mounted Btrfs drives:
-
-```bash
-python auto_btrfs_balancer.py <countdown> <count_down_step>
-```
-
-Replace `<countdown>`, `<count_down_step>`, and optionally `<drive_path>` with your specific parameters.
-
-## Installation
-
-Clone the repository to your local machine:
+Alternatively, clone the repository directly:
 
 ```bash
 git clone https://github.com/kevinveenbirkenbach/auto-btrfs-balancer.git
+cd auto-btrfs-balancer
 ```
 
-Navigate to the cloned directory and run the script as shown in the [Usage](#usage) section.
+## 🚀 Usage
 
-## Author
+### Balancing a Specific Btrfs Drive
 
-**Kevin Veen-Birkenbach**
+```bash
+sudo btrfsauba <countdown> <count_down_step> --drive_path <drive_path>
+```
 
-- Email: [kevin@veen.world](mailto:kevin@veen.world)
+### Balancing All Mounted Btrfs Drives
+
+```bash
+sudo btrfsauba <countdown> <count_down_step>
+```
+
+Replace `<countdown>` with the initial usage threshold (for both data and metadata), `<count_down_step>` with the decrement step for each balance iteration, and optionally `<drive_path>` with the specific mount point you wish to balance.
+
+## 📜 License
+
+This project is licensed under the GNU Affero General Public License v3.0. See the [LICENSE](./LICENSE) file for details.
+
+## 👨‍💻 Author
+
+Developed by **Kevin Veen-Birkenbach**  
+- Email: [kevin@veen.world](mailto:kevin@veen.world)  
 - Website: [https://www.veen.world/](https://www.veen.world/)
 
-## License
+---
 
-This project is licensed under the GNU Affero General Public License v3.0 - see the [LICENSE](LICENSE) file for details.
-
-## Acknowledgments
-
-This project was inspired by a conversation about automating Btrfs balance operations. For more context and the development background, you can refer to [this](https://chatgpt.com/share/27c9bf71-0f68-494c-8592-fc24e01b9997) and [this conversation](https://chat.openai.com/share/a12d8fdf-3adb-4533-9dcf-b71612e9af61).
+Happy balancing! ⚖️💡
