@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "btrfs-auto-balancer"
-version = "0.0.0"
+version = "1.0.0"
 description = "Balance mounted btrfs filesystems with a decreasing usage threshold."
 readme = "README.md"
 requires-python = ">=3.10"
