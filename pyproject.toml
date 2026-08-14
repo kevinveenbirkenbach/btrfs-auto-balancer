@@ -1,0 +1,36 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "btrfs-auto-balancer"
+version = "0.0.0"
+description = "Balance mounted btrfs filesystems with a decreasing usage threshold."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "AGPL-3.0-or-later" }
+authors = [{ name = "Kevin Veen-Birkenbach", email = "kevin@veen.world" }]
+keywords = ["btrfs", "balance", "filesystem", "cli"]
+dependencies = []
+
+[project.urls]
+Homepage = "https://www.veen.world/"
+Repository = "https://github.com/kevinveenbirkenbach/btrfs-auto-balancer"
+
+[project.scripts]
+btrfs-auto-balancer = "btrfs_auto_balancer.cli:main"
+btrfsauba = "btrfs_auto_balancer.cli:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/btrfs_auto_balancer"]
+core-metadata-version = "2.4"
+
+[tool.hatch.build.targets.sdist]
+core-metadata-version = "2.4"
+
+[tool.ruff]
+line-length = 88
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP"]
+ignore = ["E501"]
